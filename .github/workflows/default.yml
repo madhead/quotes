@@ -1,0 +1,20 @@
+name: Default
+
+on:
+  - push
+
+jobs:
+  test:
+    name: Test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-java@v2
+        with:
+          distribution: 'adopt'
+          java-version: '11'
+      - uses: thundra-io/thundra-gradle-test-action@v1
+        with:
+          apikey: ${{ secrets.THUNDRA_APIKEY }}
+          project_id: ${{ secrets.THUNDRA_PROJECT_ID }}
+          command: ./gradlew build
